@@ -1,108 +1,106 @@
-# Flask 用户管理系统
 
-基于Flask和MySQL的用户管理系统，提供登录注册功能。
+# 基于 Flask + Vue.js 的员工信息管理系统
 
-## 功能特性
+## 功能介绍
 
-- 用户注册和登录
-- 密码加密存储
-- 用户角色管理（管理员/普通用户）
-- Session会话管理
-- 权限控制
-- RESTful API设计
+本平台采用 B/S 架构，后端基于主流的 Python Flask 框架开发，前端采用 Vue.js + Element UI 实现。系统功能模块丰富，支持企业级员工信息全流程管理。
 
-## 安装和运行
+**主要功能模块：**
+- 用户认证（注册、登录、登出、权限管理）
+- 员工管理（增删查改、详细信息、搜索、分页）
+- 职位管理（增删查改、职位描述、唯一性校验）
+- 考勤管理（增删查改、员工考勤、状态统计、日期筛选）
+- 工资管理（增删查改、工资构成、月份筛选、金额统计）
+- 仪表盘（数据总览、统计分析）
 
-### 1. 安装依赖
-```bash
-pip install -r requirements.txt
-```
+## 演示地址
 
-### 2. 配置MySQL
-确保MySQL服务正在运行，并执行数据库初始化脚本：
-```bash
-mysql -u root -p < back/init.sql
-```
+> 暂无线上演示，如需体验请本地部署。
 
-### 3. 初始化数据库
-```bash
-python init_db.py
-```
+## 体验账号
 
-### 4. 运行应用
-```bash
-python app.py
-```
+> 默认管理员账号请在数据库 `users` 表中自行设置，或通过注册功能创建。
 
-应用将在 http://localhost:5000 运行
+## 代码结构
 
-## API接口
+- `back/` 目录为后端 Flask 项目
+- `src/` 目录为前端 Vue.js 项目
 
-### 用户注册
-```
-POST /register
-Content-Type: application/json
+## 部署运行
 
-{
-    "username": "newuser",
-    "password": "password123",
-    "role": "user"
-}
-```
+### 后端运行步骤
 
-### 用户登录
-```
-POST /login
-Content-Type: application/json
+1. **安装 Python 3.8+**
+2. **安装依赖**  
+   进入 `back` 目录，执行：
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **安装 MySQL 5.7+ 数据库，并创建数据库**  
+   创建数据库命令如下（请根据实际情况修改数据库名）：
+   ```sql
+   CREATE DATABASE IF NOT EXISTS employee_management DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
+   ```
+4. **配置数据库连接**  
+   编辑 `back/app.py`，修改如下配置为你的数据库账号密码：
+   ```python
+   app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://用户名:密码@localhost/employee_management'
+   ```
+5. **初始化数据表**  
+   启动 Flask 服务时会自动创建表，无需手动导入 SQL。
+6. **启动 Flask 服务**  
+   在 `back` 目录下执行：
+   ```bash
+   python app.py
+   ```
+   默认端口为 5000。
 
-{
-    "username": "admin",
-    "password": "admin123"
-}
-```
+### 前端运行步骤
 
-### 用户登出
-```
-POST /logout
-```
+1. **安装 Node.js 16+**
+2. **安装依赖**  
+   进入 `src` 目录，执行：
+   ```bash
+   npm install
+   ```
+3. **运行项目**
+   ```bash
+   npm run serve
+   ```
+   默认端口为 8080。
 
-### 获取用户信息
-```
-GET /profile
-```
+### 常见问题
 
-### 获取所有用户（管理员权限）
-```
-GET /users
-```
+- **前后端联调跨域问题？**  
+  已在 Flask 端配置 CORS，支持本地开发环境跨域访问。
 
-## 默认用户账号
+- **数据库连接失败？**  
+  请检查 `app.py` 中数据库配置，确保账号、密码、端口、数据库名正确，MySQL 服务已启动。
 
-系统会自动创建以下默认用户：
+- **依赖安装失败？**  
+  建议使用国内镜像源安装 Python/npm 依赖。
 
-- **管理员**: admin / admin123
-- **普通用户**: user / user123
+- **如何设置管理员？**  
+  可直接在 `users` 表插入一条 `role=admin` 的用户数据，或注册后手动修改角色。
 
-## 数据库配置
+- **如何修改前端 API 地址？**  
+  编辑 `src/api/employee.js`，修改 `axios.defaults.baseURL` 为后端实际地址。
 
-默认配置：
-- 主机：localhost
-- 用户：root
-- 密码：password
-- 数据库：employee_management
+- **数据表结构？**  
+  详见 `back/models.py`，所有表结构均以 SQLAlchemy ORM 形式定义。
 
-如需修改，请编辑 `app.py` 中的数据库连接字符串。
+## 技术栈
 
-## 测试API
+- **后端**：Flask、Flask-SQLAlchemy、Flask-CORS、PyMySQL
+- **前端**：Vue.js、Vuex、Vue Router、Element UI、Axios
 
-运行测试脚本验证功能：
-```bash
-python test_api.py
-```
+## 付费咨询
 
-## 安全特性
+如需定制开发、部署支持或技术咨询，请联系：
 
-- 密码使用werkzeug.security进行哈希加密
-- Session管理用户登录状态
-- 基于角色的权限控制
-- 输入验证和错误处理 
+- 微信：`your_wechat_id`
+- 邮箱：`your_email@example.com`
+
+---
+
+> 本项目适合企业级员工管理、考勤工资管理等场景，支持二次开发和功能扩展。 
