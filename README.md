@@ -18,8 +18,8 @@
 > 暂无线上演示，如需体验请本地部署。
 
 ## 体验账号
-
-> 默认管理员账号请在数据库 `users` 表中自行设置，或通过注册功能创建。
+管理员账号：admin
+     密码：123456
 
 ## 代码结构
 
@@ -93,14 +93,5 @@
 
 - **后端**：Flask、Flask-SQLAlchemy、Flask-CORS、PyMySQL
 - **前端**：Vue.js、Vuex、Vue Router、Element UI、Axios
-
-## 付费咨询
-
-如需定制开发、部署支持或技术咨询，请联系：
-
-- 微信：`your_wechat_id`
-- 邮箱：`your_email@example.com`
-
----
 
 > 本项目适合企业级员工管理、考勤工资管理等场景，支持二次开发和功能扩展。 
